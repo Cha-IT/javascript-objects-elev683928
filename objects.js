@@ -73,3 +73,63 @@ if (resultDiv) {
 
 
 console.log('Endelig objekt:', JSON.stringify(informasjonsteknologi1, null, 2));
+
+// -------------------------
+// Oppgave 2
+// 2a: Lag en array med 10 film-objekter (tittel, regissor, sett)
+const filmer = [
+	{ tittel: 'Inception', regissor: 'Christopher Nolan', sett: true },
+	{ tittel: 'The Matrix', regissor: 'Lana Wachowski & Lilly Wachowski', sett: true },
+	{ tittel: 'Parasite', regissor: 'Bong Joon-ho', sett: false },
+	{ tittel: 'Interstellar', regissor: 'Christopher Nolan', sett: true },
+	{ tittel: 'The Godfather', regissor: 'Francis Ford Coppola', sett: false },
+	{ tittel: 'Spirited Away', regissor: 'Hayao Miyazaki', sett: false },
+	{ tittel: 'The Room', regissor: 'Tommy Wiseau', sett: false },
+	{ tittel: 'Amélie', regissor: 'Jean-Pierre Jeunet', sett: false },
+	{ tittel: 'The Shawshank Redemption', regissor: 'Frank Darabont', sett: true },
+	{ tittel: 'Pulp Fiction', regissor: 'Quentin Tarantino', sett: false }
+];
+
+// 2b: bruk en løkke for å gå gjennom arrayen og skrive tittel og regissør til konsollen
+console.log('\n--- Filmer (opprinnelig rekkefølge) ---');
+filmer.forEach(f => console.log(`${f.tittel} — ${f.regissor}`));
+
+// 2c: sorter objektene i arrayen etter filmtittel
+const filmerSortert = [...filmer].sort((a, b) => a.tittel.localeCompare(b.tittel, 'no'));
+console.log('\n--- Filmer (sortert etter tittel) ---');
+filmerSortert.forEach(f => console.log(`${f.tittel} — ${f.regissor}`));
+
+// 2d: legg til en tekst foran hver tittel som antyder om du har sett filmen eller ikke
+console.log('\n--- Filmer med sett/ikke sett ---');
+filmerSortert.forEach(f => {
+	const prefix = f.sett ? '[Sett]' : '[Ikke sett]';
+	console.log(`${prefix} ${f.tittel} — ${f.regissor}`);
+});
+
+// Vis film-listene på siden under #result
+if (resultDiv) {
+	// Legg til en seksjon for Oppgave 2
+	resultDiv.innerHTML += `
+		<h2>Oppgave 2 — Filmer</h2>
+		<h3>Opprinnelig</h3>
+		<ul id="filmer-opprinnelig"></ul>
+		<h3>Sortert etter tittel</h3>
+		<ul id="filmer-sortert"></ul>
+	`;
+
+	const ulOpprinnelig = document.getElementById('filmer-opprinnelig');
+	filmer.forEach(f => {
+		const li = document.createElement('li');
+		li.textContent = `${f.tittel} — ${f.regissor}`;
+		ulOpprinnelig.appendChild(li);
+	});
+
+	const ulSortert = document.getElementById('filmer-sortert');
+	filmerSortert.forEach(f => {
+		const li = document.createElement('li');
+		const prefix = f.sett ? 'Sett: ' : 'Ikke sett: ';
+		li.textContent = `${prefix}${f.tittel} — ${f.regissor}`;
+		ulSortert.appendChild(li);
+	});
+}
+
